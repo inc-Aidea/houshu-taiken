@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>報酬デスク 体験版（ドライバーの画面）</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #eef0ec; --paper: #fff; --ink: #16212b; --ink2: #56616c; --line: #dde1dc; --night: #14212b; --amber: #e3a21a; --amber-bg: #fdf3dc; --green: #2f7d4f; --green-bg: #e3f2e8; --blue: #2462a8; --blue-bg: #e5eef9; --red: #c2341b; --red-bg: #fbe7e2; --line-green: #06c755; }
+* { box-sizing: border-box; }
+body { margin: 0px; background: var(--bg); color: var(--ink); font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif; font-size: 15px; line-height: 1.55; -webkit-tap-highlight-color: transparent; }
+.wrap { max-width: 460px; margin: 0px auto; padding: 0 14px calc(40px + env(safe-area-inset-bottom)); }
+.num { font-variant-numeric: tabular-nums; }
+header { background: var(--night); color: rgb(255, 255, 255); padding: 12px 16px 14px; margin: 0px -14px 14px; }
+header .top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgb(174, 188, 203); gap: 8px; }
+header select { font-style: inherit; font-variant: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; font-size: 19px; font-weight: 700; background: transparent; color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 4px 0px; margin-top: 2px; appearance: none; max-width: 100%; }
+header select option { color: rgb(0, 0, 0); }
+header .preview { display: inline-block; margin-top: 4px; font-size: 11px; background: var(--amber); color: var(--night); border-radius: 4px; padding: 1px 7px; font-weight: 700; }
+.card { background: var(--paper); border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 0px; scroll-margin-top: 12px; }
+.card h2 { font-size: 14px; margin: 0px 0px 10px; color: var(--ink2); font-weight: 700; display: flex; justify-content: space-between; gap: 8px; }
+.big { width: 100%; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 12px; padding: 17px; font-style: inherit; font-variant: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; font-size: 18px; font-weight: 700; background: var(--night); color: rgb(255, 255, 255); }
+.big.end { background: var(--amber); color: var(--night); }
+.big:disabled { opacity: 0.45; }
+.live { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px var(--green-bg); animation: 1.6s ease 0s infinite normal none running p; flex: 0 0 auto; }
+@keyframes p { 
+  50% { box-shadow: rgba(47, 125, 79, 0.08) 0px 0px 0px 8px; }
+}
+.when { padding: 10px 0px; border-top: 1px solid var(--line); }
+.when label { font-weight: 700; display: block; margin-bottom: 6px; }
+.when-in { display: flex; gap: 8px; }
+.when-in input { font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; font-size: 18px; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 10px; min-width: 0px; flex: 1 1 0%; background: rgb(255, 255, 255); color: var(--ink); }
+.when-in input[type="time"] { flex: 0 0 120px; }
+.when .sub { margin-top: 4px; }
+.field { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0px; border-top: 1px solid var(--line); }
+.field label { font-weight: 700; }
+.field input { font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; font-size: 22px; width: 130px; text-align: right; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.field input:focus { outline: none; border-color: var(--night); }
+.done { background: var(--green-bg); color: var(--green); border-radius: 10px; padding: 12px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+.est { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.est .v { font-size: 28px; font-weight: 700; }
+.sub { font-size: 12.5px; color: var(--ink2); }
+.calc { background: rgb(246, 247, 244); border-radius: 10px; padding: 10px 12px; font-size: 13px; }
+.calc div { display: flex; justify-content: space-between; gap: 8px; }
+.pill { font-size: 12px; border-radius: 10px; padding: 1px 9px; font-weight: 700; white-space: nowrap; }
+.pill.wait { background: var(--amber-bg); color: rgb(148, 101, 11); }
+.pill.go { background: var(--blue-bg); color: var(--blue); }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 0px; border-top: 1px solid var(--line); font-size: 14px; }
+.row:first-child { border-top-width: medium; border-top-style: none; border-top-color: currentcolor; }
+.row a { color: var(--blue); text-decoration: none; font-weight: 700; }
+.more { display: block; width: 100%; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; font: inherit; color: var(--blue); padding: 8px 0px 0px; text-align: center; }
+.toast { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); background: var(--night); color: rgb(255, 255, 255); padding: 11px 18px; border-radius: 10px; font-size: 14px; opacity: 0; transition: 0.2s; pointer-events: none; width: max-content; max-width: 90vw; text-align: center; }
+.foot { text-align: center; font-size: 11.5px; color: var(--ink2); margin-top: 14px; }
+@keyframes sk { 
+  100% { background-position: -200% 0px; }
+}
+.trial-bar { margin: 0px; padding: 8px 24px; background: rgb(253, 243, 220); color: rgb(22, 33, 43); font-size: 12.5px; line-height: 1.6; }
+.trial-bar a { color: rgb(36, 98, 168); white-space: nowrap; }
+@media print{.trial-bar { display: none; }}
+</style>
+</head>
+<body data-page="driver">
+<p class="trial-bar">これは「報酬デスク」の体験版です。会社・人・金額・口座はすべて架空、今日は2026年10月19日に固定。入力した内容は外に送られません。<a href="guide.html">触り方</a>　<a href="https://inc-aidea.com/" target="_blank" rel="noopener">導入の相談（株式会社Aidea）</a></p>
+<div class="wrap">
+<header><div class="top"><span>稼働報告</span><span>今日 10/19（月）</span></div><div id="who"></div></header>
+<div id="app"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="data-driver.js"></script>
+<script src="play.js"></script>
+</body>
+</html>
